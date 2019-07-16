@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy.sql import func
@@ -18,6 +18,7 @@ class User(db.Model):
     first_name = db.Column(db.String(45))
     last_name = db.Column(db.String(45))
     email = db.Column(db.String(45))
+    age = db.Column(db.Integer)
     # notice the extra import statement above
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(
@@ -26,7 +27,17 @@ class User(db.Model):
 
 @app.route("/")
 def root():
-    return render_template('index.html')
+    userlist = User.query.all()
+    return render_template('index.html', userlist=userlist)
+
+
+@app.route('/addUser', methods=['POST'])
+def addUser():
+    newUser = User(first_name=request.form['fName'], last_name=request.form['lName'],
+                   email=request.form['email'], age=request.form['age'])
+    db.session.add(newUser)
+    db.session.commit()
+    return redirect("/")
 
 
 if __name__ == "__main__":

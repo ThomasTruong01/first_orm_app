@@ -5,10 +5,119 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Hello Users</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+			crossorigin="anonymous"
+		></script>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{{ url_for('static', filename='css/style.css') }}"
+		/>
 	</head>
 	<body>
-		<h1>
-			Hello Users
-		</h1>
+		<main>
+			<div class="container">
+				<div class="usersList">
+					<p class="h1 text-center">All The Users</p>
+					<table class="table table-stripe table-hover">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th scope="col">Age</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for usr in userlist %}
+							<tr>
+								<td>{{ usr.id }}</td>
+								<td>{{ usr.first_name }} {{ usr.last_name }}</td>
+								<td>{{ usr.email }}</td>
+								<td>{{ usr.age }}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<hr />
+				<div class="addUser">
+					<p class="h1 text-center">Add a User</p>
+					<form action="addUser" method="post">
+						<div class="form-inline col-sm-12 justify-content-center">
+							<div class="form-group">
+								<label for="fName" class="col-sm-4 col-form-label"
+									>First Name</label
+								>
+								<input
+									type="text"
+									name="fName"
+									id="fName"
+									class="form-control col-sm-8"
+								/>
+							</div>
+							<div class="form-group">
+								<label for="lName" class="col-sm-4 col-form-label"
+									>Last Name</label
+								>
+								<input
+									type="text"
+									name="lName"
+									id="lName"
+									class="form-control col-sm-8"
+								/>
+							</div>
+						</div>
+						<div class="form-inline col-sm-12 justify-content-center">
+							<div class="form-group">
+								<label for="email" class="col-sm-4 col-form-label">Email</label>
+								<input
+									type="email"
+									name="email"
+									id="email"
+									class="form-control col-sm-8"
+								/>
+							</div>
+							<div class="form-group ">
+								<label for="lName" class="col-sm-4 col-form-label">Age </label>
+								<input
+									type="text"
+									name="age"
+									id="age"
+									class="form-control col-sm-8"
+								/>
+							</div>
+						</div>
+						<div class="form-inline justify-content-center">
+							<p>
+								<input
+									type="submit"
+									value="Add User"
+									class="btn btn-primary m-3"
+								/>
+							</p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</main>
 	</body>
 </html>
